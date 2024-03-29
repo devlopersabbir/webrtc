@@ -10,7 +10,7 @@ const App = () => {
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
-            <Route path="/room" element={<Room />} />
+            <Route path="/room/:roomId" element={<Room />} />
           </Route>
         </Routes>
       </SocketProvider>
