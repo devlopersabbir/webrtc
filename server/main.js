@@ -15,9 +15,9 @@ const socketIdToUsername = new Map();
 
 // signal from socket
 io.on("connection", (socket) => {
-  console.log("new connection ");
+  console.log("new connection ", socket.id);
   // enter the room with (join-room) event
-  socket.on("join-room", (data) => {
+  socket.on("create-room", (data) => {
     const { username, roomId } = data;
     console.log(`${username} is connected on ${roomId} room :)`);
 
@@ -26,8 +26,9 @@ io.on("connection", (socket) => {
     socketIdToUsername.set(socket.id, username);
 
     // now join socket
+    io.to(roomId).emit("user-joined", { username, socketId: socket.id });
     socket.join(roomId); /** join a user with the room id */
-    io.to(roomId).emit("user-joined", data);
+    io.to(socket.id).emit("room", data);
   });
 });
 
