@@ -6,7 +6,6 @@ import { getStrem } from "../service/config";
 
 const Room = () => {
   const [remoteSocketId, setRemoteSocketId] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
   const [mediaStrem, setMediaStrem] = useState<MediaStream | null>(null);
   const [remoteStrem, setRemoteStrem] = useState<MediaStream | null>(null);
   const socket = useSocket();
@@ -20,7 +19,6 @@ const Room = () => {
   }) {
     console.log(`Username: ${username} is joined on ${socketId} room`);
     setRemoteSocketId(socketId);
-    setUsername(username);
   }
 
   /** call to the joined user */
@@ -53,10 +51,8 @@ const Room = () => {
   }
 
   async function handleCallAccepted({
-    from,
     answer,
   }: {
-    from: string;
     answer: RTCSessionDescriptionInit;
   }) {
     console.log("call accepted :)");
@@ -82,10 +78,8 @@ const Room = () => {
   }
 
   async function handleNegoFinal({
-    from,
     answer,
   }: {
-    from: string;
     answer: RTCSessionDescriptionInit;
   }) {
     await peer.setLocalDescription(answer);
