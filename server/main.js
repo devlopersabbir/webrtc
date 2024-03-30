@@ -9,6 +9,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (_, res) => {
+  res.status(200).json({ message: "Working Perfectly" });
+});
+
 // local DB to store username and socketId
 const usernameToSocketMapping = new Map();
 const socketIdToUsername = new Map();
